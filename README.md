@@ -12,9 +12,8 @@ This project provides an interface where users can:
 
 ## Features
 
-- **Camera Management**: Add, update, or delete cameras.
+- **Camera Management**: delete cameras.
 - **Filtering**: Filter cameras by location, status, or search query.
-- **Bulk Actions**: Select multiple cameras and perform bulk delete operations.
 - **Status Management**: Change the status of cameras (Activate/Deactivate).
 - **Pagination**: Navigate through the camera list with pagination controls.
 - **Camera Health & Status Display**: View the health and status of each camera.
