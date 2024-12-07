@@ -1,8 +1,6 @@
-# WobotAI Task Management
+# WobotAI Task
 
 ## Overview
-
-The WobotAI Task Management is a web application that allows users to manage cameras, filter based on location and status, and perform bulk actions such as deleting selected cameras.
 
 This project provides an interface where users can:
 - View and filter cameras by location, status, and search.
