@@ -169,8 +169,8 @@ const handleDelete = () => {
 
   const totalPages = Math.ceil(filteredCameras.length / itemsPerPage);
 
-  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (loading) return <p className="text-center text-gray_500">Loading...</p>;
+  if (error) return <p className="text-center text-red_500">{error}</p>;
 
   return (
     <div className="p-4 lg:p-6 bg-gray-100 min-h-screen">
@@ -180,7 +180,7 @@ const handleDelete = () => {
         </div>
         <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-4 mb-4">
           <div className="w-full flex flex-col gap-2">
-            <h1 className="text-2xl font-bold text-gray-800">Cameras</h1>
+            <h1 className="text-2xl font-bold text-gray_800">Cameras</h1>
             <p className="text-gray-600 ">Manage your cameras here.</p>
           </div>
 
@@ -193,9 +193,9 @@ const handleDelete = () => {
                   handleFilterChange("searchQuery", e.target.value)
                 }
                 placeholder="Search"
-                className="px-4 py-2 pl-4 pr-10 border rounded-lg w-full"
+                className="px-4 py-2 pl-4 pr-10 border rounded outline-none w-full"
               />
-              <span className="absolute inset-y-0 right-3 flex items-center text-gray-500">
+              <span className="absolute inset-y-0 right-3 flex items-center text-gray_500">
                 <IoIosSearch />
               </span>
             </div>

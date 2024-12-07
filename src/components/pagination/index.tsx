@@ -26,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="w-full flex justify-between items-center mt-6">
-      <div className="w-full flex gap-4 lg:justify-end items-center">
+      <div className="w-full flex gap-4 lg:justify-end items-center text-gray_500">
         <select
           value={itemsPerPage}
           onChange={onItemsPerPageChange}
@@ -41,28 +41,28 @@ const Pagination: React.FC<PaginationProps> = ({
           <button
             onClick={() => onPageChange(Math.max(currentPage - 2, 1))}
             disabled={currentPage === 1}
-            className="px-2 py-2"
+            className="px-1 py-2"
           >
             <PiCaretDoubleLeftThin />
           </button>
           <button
             onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
-            className="px-2 py-2"
+            className="px-1 py-2"
           >
             <PiLessThanLight />
           </button>
           <button
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="px-2 py-2"
+            className="px-1 py-2"
           >
             <PiGreaterThanLight />
           </button>
           <button
             onClick={() => onPageChange(Math.min(currentPage + 2, totalPages))}
             disabled={currentPage === totalPages}
-            className="px-2 py-2"
+            className="px-1 py-2"
           >
             <PiCaretDoubleRightThin />
           </button>

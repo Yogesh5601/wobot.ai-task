@@ -37,7 +37,7 @@ const CameraTable: React.FC<CameraTableProps> = ({
   return (
     <div className="overflow-x-auto">
       <table className="table-auto w-full bg-white shadow-lg rounded-lg">
-        <thead className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+        <thead className="bg-gray_200 text-gray_600 uppercase text-sm leading-normal">
           <tr>
             <th className="py-3 px-6 text-left">
               
@@ -51,11 +51,11 @@ const CameraTable: React.FC<CameraTableProps> = ({
             <th className="py-3 px-6 text-left">Actions</th>
           </tr>
         </thead>
-        <tbody className="text-gray-600 text-sm font-light">
+        <tbody className="text-gray_600 text-sm font-light">
           {cameras.map((camera) => (
             <tr
               key={camera.id}
-              className="border-b border-gray-200 hover:bg-gray-100"
+              className="border-b border-gray_200 hover:bg-gray_100"
             >
               <td className="py-3 px-6">
                 {/* Checkbox for each camera */}
@@ -133,8 +133,8 @@ const CameraTable: React.FC<CameraTableProps> = ({
                 <span
                   className={`py-1 px-3 rounded text-xs ${
                     camera.status === "Active"
-                      ? "bg-green-200 text-green-700"
-                      : "bg-gray-200 text-gray-700"
+                      ? "bg-green-200 text-green_700"
+                      : "bg-gray-200 text-gray_700"
                   }`}
                 >
                   {camera.status}
@@ -145,7 +145,7 @@ const CameraTable: React.FC<CameraTableProps> = ({
                 {selectedCameras.includes(camera.id) ? (
                   <>
                     <button
-                      className="text-sm hover:text-red-600"
+                      className="text-sm hover:text-red_600"
                       onClick={() => {
                         const newStatus =
                           camera.status === "Active" ? "Inactive" : "Active";
@@ -155,7 +155,7 @@ const CameraTable: React.FC<CameraTableProps> = ({
                       {camera.status === "Active" ? "Deactivate" : "Activate"}{" "}
                     </button>
                     <button
-                      className="text-lg hover:text-red-600"
+                      className="text-lg hover:text-red_600"
                       onClick={() => onDelete(camera.id)}
                     >
                       <MdDeleteOutline />
