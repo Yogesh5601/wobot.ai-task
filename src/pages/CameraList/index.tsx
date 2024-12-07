@@ -21,6 +21,7 @@ const CameraList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [selectedCameras, setSelectedCameras] = useState<string[]>([]);
+  const apiToken = process.env.REACT_APP_API_TOKEN;
 
   useEffect(() => {
     const fetchCameras = async () => {
@@ -29,7 +30,7 @@ const CameraList = () => {
           "https://api-app-staging.wobot.ai/app/v1/fetch/cameras",
           {
             headers: {
-              Authorization: `Bearer 4ApVMIn5sTxeW7GQ5VWeWiy`,
+              Authorization: `Bearer ${apiToken}`,
             },
           }
         );
