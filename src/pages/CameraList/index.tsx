@@ -5,8 +5,8 @@ import Filters from "../../components/FilterBar";
 import Pagination from "../../components/pagination";
 import CameraTable from "../../components/CameraTable";
 import brandLogo from "../../assets/BrandLogo.png";
-import { IoIosSearch } from "react-icons/io";
-
+import { IoIosSearch, IoIosRefresh } from "react-icons/io";
+import { LuLoaderCircle } from "react-icons/lu";
 
 const CameraList = () => {
   const [cameras, setCameras] = useState<ICamera[]>([]);
@@ -34,12 +34,11 @@ const CameraList = () => {
             },
           }
         );
-        // console.log(response.data.data);
         setCameras(response.data.data);
         setFilteredCameras(response.data.data);
         setLoading(false);
       } catch (error) {
-        console.log("error:",error)
+        console.log("error:", error);
         setLoading(false);
         setError("Failed to fetch data");
       }
@@ -48,36 +47,31 @@ const CameraList = () => {
     fetchCameras();
   }, []);
 
-  // Function to update camera status via API
-const updateCameraStatus = async (
-  id: string,
-  status: string
-) => {
-  const url = `https://api-app-staging.wobot.ai/app/v1/update/camera/status`;
+  const updateCameraStatus = async (id: string, status: string) => {
+    const url = `https://api-app-staging.wobot.ai/app/v1/update/camera/status`;
 
-  try {
-    const response = await axios.post(url, {
-      id: id,
-      status: status,
-    });
+    try {
+      const response = await axios.post(url, {
+        id: id,
+        status: status,
+      });
 
-    console.log("Camera status updated successfully", response.data);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error(
-        "Error updating camera status:",
-        error.response?.data?.message || error.message
-      );
-    } else {
-      console.error("Unexpected error:", error);
+      console.log("Camera status updated successfully", response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Error updating camera status:",
+          error.response?.data?.message || error.message
+        );
+      } else {
+        console.error("Unexpected error:", error);
+      }
     }
-  }
-};
+  };
 
-  // Function to handle status change
   const handleStatusChange = async (cameraId: string, newStatus: string) => {
     try {
-      await updateCameraStatus(cameraId, newStatus); 
+      await updateCameraStatus(cameraId, newStatus);
 
       setCameras((prev) =>
         prev.map((camera) =>
@@ -113,7 +107,7 @@ const updateCameraStatus = async (
       return matchesLocation && matchesStatus && matchesSearchQuery;
     });
     setFilteredCameras(filtered);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }, [selectedFilters, cameras]);
 
   const handleFilterChange = (key: string, value: string) => {
@@ -138,28 +132,24 @@ const updateCameraStatus = async (
     );
   };
 
+  const handleDelete = () => {
+    if (selectedCameras.length === 0) {
+      alert("Please select cameras to delete.");
+      return;
+    }
 
-const handleDelete = () => {
-  // Check if there are any selected cameras
-  if (selectedCameras.length === 0) {
-    alert("Please select cameras to delete.");
-    return;
-  }
-
-  // Confirm the deletion action
-  if (window.confirm("Are you sure you want to delete the selected cameras?")) {
-    // Delete selected cameras from both cameras and filteredCameras
-    setCameras((prev) =>
-      prev.filter((camera) => !selectedCameras.includes(camera.id))
-    );
-    setFilteredCameras((prev) =>
-      prev.filter((camera) => !selectedCameras.includes(camera.id))
-    );
-    // Optionally, clear the selected cameras after deletion
-    setSelectedCameras([]);
-  }
-};
-
+    if (
+      window.confirm("Are you sure you want to delete the selected cameras?")
+    ) {
+      setCameras((prev) =>
+        prev.filter((camera) => !selectedCameras.includes(camera.id))
+      );
+      setFilteredCameras((prev) =>
+        prev.filter((camera) => !selectedCameras.includes(camera.id))
+      );
+      setSelectedCameras([]);
+    }
+  };
 
   const indexOfLastCamera = currentPage * itemsPerPage;
   const indexOfFirstCamera = indexOfLastCamera - itemsPerPage;
@@ -170,8 +160,21 @@ const handleDelete = () => {
 
   const totalPages = Math.ceil(filteredCameras.length / itemsPerPage);
 
-  if (loading) return <p className="text-center text-gray_500">Loading...</p>;
-  if (error) return <p className="text-center text-red_500">{error}</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <LuLoaderCircle className="animate-spin text-4xl text-gray-500" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-red-500 text-xl">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 lg:p-6 bg-gray-100 min-h-screen">
@@ -185,21 +188,20 @@ const handleDelete = () => {
             <p className="text-gray-600 ">Manage your cameras here.</p>
           </div>
 
-          {/* Search bar */}
-          <div className="relative  lg:block">
-              <input
-                type="text"
-                value={selectedFilters.searchQuery}
-                onChange={(e) =>
-                  handleFilterChange("searchQuery", e.target.value)
-                }
-                placeholder="Search"
-                className="px-4 py-2 pl-4 pr-10 border rounded outline-none w-full"
-              />
-              <span className="absolute inset-y-0 right-3 flex items-center text-gray_500">
-                <IoIosSearch />
-              </span>
-            </div>
+          <div className="relative lg:block">
+            <input
+              type="text"
+              value={selectedFilters.searchQuery}
+              onChange={(e) =>
+                handleFilterChange("searchQuery", e.target.value)
+              }
+              placeholder="Search"
+              className="px-4 py-2 pl-4 pr-10 border rounded outline-none w-full"
+            />
+            <span className="absolute inset-y-0 right-3 flex items-center text-gray_500">
+              <IoIosSearch />
+            </span>
+          </div>
         </div>
 
         <Filters
@@ -214,7 +216,7 @@ const handleDelete = () => {
           selectedCameras={selectedCameras}
           onSelectCamera={handleSelectCamera}
           onDelete={handleDelete}
-          onStatusChange={handleStatusChange} 
+          onStatusChange={handleStatusChange}
         />
 
         <Pagination
